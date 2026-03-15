@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: be-todo
+    name: be-todolist
     env: docker
     dockerfilePath: ./backend/Dockerfile
     envVars:
@@ -18,7 +18,7 @@ services:
         value: 5000
 
   - type: web
-    name: fe-todo
+    name: fe-todolist
     env: docker
     dockerfilePath: ./frontend/Dockerfile
     envVars:

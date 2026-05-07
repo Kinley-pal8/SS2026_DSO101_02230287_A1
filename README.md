@@ -378,6 +378,10 @@ Navigate to:
 
 To verify the automated deployment pipeline, a commit was pushed to the repository and the Render dashboard was monitored to confirm that both services automatically triggered a new build and deployment without any manual intervention.
 
+**Screenshot 18 - Render Blueprint Deployment**
+
+![Screenshot 18](screenshots/0.20.png)
+
 ---
 
 ## Summary
@@ -389,7 +393,7 @@ To verify the automated deployment pipeline, a commit was pushed to the reposito
 | Frontend URL (Live) | `https://fe-todo-ete4.onrender.com`                        |
 | GitHub Repository   | `https://github.com/Kinley-pal8/SS2026_DSO101_02230287_A1` |
 | Blueprint Name      | `SS2026_DSO101_A1_Blueprint`                               |
-| Auto-Deploy Status  | ✅ Active (GitHub Actions + Render Blueprint)             |
+| Auto-Deploy Status  | ✅ Active (GitHub Actions + Render Blueprint)              |
 
 ---
 

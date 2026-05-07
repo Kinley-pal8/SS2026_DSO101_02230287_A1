@@ -6,13 +6,13 @@ services:
       url: docker.io/easykp8/be-todo:02230287
     envVars:
       - key: DB_HOST
-        sync: false
+        value: dpg-d7ueg39po60c73b1uoeg-a
       - key: DB_USER
-        sync: false
+        value: todo_list_jyy6_user
       - key: DB_PASSWORD
-        sync: false
+        value: 9rB6GGwu9rbW8O9yoRrNdvgn8mMxz6z7
       - key: DB_NAME
-        sync: false
+        value: todo_list_jyy6
       - key: DB_PORT
         value: 5432
       - key: PORT
@@ -25,4 +25,4 @@ services:
       url: docker.io/easykp8/fe-todo:02230287
     envVars:
       - key: REACT_APP_API_URL
-        sync: false
+        value: https://be-todo-uj05.onrender.com

@@ -383,11 +383,35 @@ To verify the automated deployment pipeline, a commit was pushed to the reposito
 ## Summary
 
 | Component           | Details                                                    |
-| ------------------- | ---------------------------------------------------------- | --- | --- |
-| Docker Hub Username | `easykp8`                                                  |     |     |
-| Backend URL         | `https://be-todo-auto.onrender.com`                        |
-| Frontend URL        | `https://fe-todo-auto.onrender.com`                        |
+| ------------------- | ---------------------------------------------------------- |
+| Docker Hub Username | `easykp8`                                                  |
+| Backend URL (Live)  | `https://be-todo-uj05.onrender.com`                        |
+| Frontend URL (Live) | `https://fe-todo-ete4.onrender.com`                        |
 | GitHub Repository   | `https://github.com/Kinley-pal8/SS2026_DSO101_02230287_A1` |
+| Blueprint Name      | `SS2026_DSO101_A1_Blueprint`                               |
+| Auto-Deploy Status  | ✅ Active (GitHub Actions + Render Blueprint)             |
+
+---
+
+## How to Test the Live Application
+
+1. **Open Frontend:** https://fe-todo-ete4.onrender.com/
+2. **Add a Task:** Type in the input field and click "Add"
+3. **Edit a Task:** Click the task text to edit
+4. **Complete a Task:** Click the checkbox to mark as done
+5. **Delete a Task:** Click the trash icon
+6. **Backend API:** https://be-todo-uj05.onrender.com/todos (GET request to see all todos)
+
+---
+
+## Continuous Integration & Deployment Workflow
+
+**The pipeline is fully automated:**
+
+1. **Code Push** → GitHub
+2. **GitHub Actions** → Builds & pushes Docker images to Docker Hub
+3. **Render Blueprint** → Detects changes and auto-deploys services
+4. **Live Update** → Changes live within 5-10 minutes of push
 
 ---
 

@@ -295,9 +295,76 @@ The `sync: false` directive was used for sensitive environment variables to ensu
 
 The project was pushed to a GitHub repository named `SS2026_DSO101_02230287_A1`. The `.gitignore` was configured to exclude all `.env` files and `node_modules` directories, ensuring no sensitive information was committed.
 
-**Screenshot 15 - Auto deploy for backend (Render dashboard)**
+### 3.4 GitHub Actions Workflow for Automated Image Build and Push
 
-![Screenshot 15](screenshots/0.15.png)
+A GitHub Actions workflow (`.github/workflows/docker-build-push.yml`) was configured to automatically build and push Docker images to Docker Hub whenever changes are pushed to the repository.
+
+**Workflow Configuration:**
+
+```yaml
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "backend/**"
+      - "frontend/**"
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/be-todo:02230287
+            ${{ secrets.DOCKER_USERNAME }}/be-todo:latest
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/fe-todo:02230287
+            ${{ secrets.DOCKER_USERNAME }}/fe-todo:latest
+```
+
+**Setup Instructions:**
+
+To enable this workflow, configure the following GitHub secrets in your repository settings:
+
+1. `DOCKER_USERNAME`: Your Docker Hub username (`easykp8`)
+2. `DOCKER_PASSWORD`: Your Docker Hub Personal Access Token
+
+Navigate to:
+
+- GitHub Repository → Settings → Secrets and Variables → Actions → New Repository Secret
+
+**Screenshot 15 - Auto deploy for backend (Render dashboard)**
 
 **Screenshot 16 - Auto deploy for frontend (Render dashboard)**
 
@@ -316,10 +383,10 @@ To verify the automated deployment pipeline, a commit was pushed to the reposito
 ## Summary
 
 | Component           | Details                                                    |
-| ------------------- | ---------------------------------------------------------- |
-| Docker Hub Username | `easykp8`                                                  |                     |               |
-| Backend URL  | `https://be-todo-auto.onrender.com`                        |
-| Frontend URL | `https://fe-todo-auto.onrender.com`                        |
+| ------------------- | ---------------------------------------------------------- | --- | --- |
+| Docker Hub Username | `easykp8`                                                  |     |     |
+| Backend URL         | `https://be-todo-auto.onrender.com`                        |
+| Frontend URL        | `https://fe-todo-auto.onrender.com`                        |
 | GitHub Repository   | `https://github.com/Kinley-pal8/SS2026_DSO101_02230287_A1` |
 
 ---

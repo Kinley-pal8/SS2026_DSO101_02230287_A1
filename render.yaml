@@ -1,6 +1,7 @@
 services:
   - type: web
     name: be-todo
+    runtime: image
     image:
       url: docker.io/easykp8/be-todo:02230287
     envVars:
@@ -19,6 +20,7 @@ services:
 
   - type: web
     name: fe-todo
+    runtime: image
     image:
       url: docker.io/easykp8/fe-todo:02230287
     envVars:

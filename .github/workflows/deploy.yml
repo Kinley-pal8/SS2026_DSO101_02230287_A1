@@ -48,11 +48,14 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/fe-todo:02230287
             ${{ secrets.DOCKER_USERNAME }}/fe-todo:latest
 
-      - name: Trigger Render Deployment
+      - name: Trigger Render Backend Deployment
         run: |
-          echo "🚀 Images pushed to Docker Hub successfully!"
-          echo "Backend Image: ${{ secrets.DOCKER_USERNAME }}/be-todo:latest"
-          echo "Frontend Image: ${{ secrets.DOCKER_USERNAME }}/fe-todo:latest"
-          echo ""
-          echo "Render Blueprint is configured to auto-deploy when images are updated."
-          echo "Deployment will be triggered automatically."
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}" \
+            -H "Content-Type: application/json"
+          echo "✅ Backend deployment triggered on Render"
+
+      - name: Trigger Render Frontend Deployment
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}" \
+            -H "Content-Type: application/json"
+          echo "✅ Frontend deployment triggered on Render"

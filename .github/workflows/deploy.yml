@@ -1,0 +1,58 @@
+name: Build, Push, and Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "backend/**"
+      - "frontend/**"
+      - "render.yaml"
+      - ".github/workflows/deploy.yml"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/be-todo:02230287
+            ${{ secrets.DOCKER_USERNAME }}/be-todo:latest
+
+      - name: Build and Push Frontend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          build-args: |
+            REACT_APP_API_URL=https://be-todo-uj05.onrender.com
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/fe-todo:02230287
+            ${{ secrets.DOCKER_USERNAME }}/fe-todo:latest
+
+      - name: Trigger Render Deployment
+        run: |
+          echo "🚀 Images pushed to Docker Hub successfully!"
+          echo "Backend Image: ${{ secrets.DOCKER_USERNAME }}/be-todo:latest"
+          echo "Frontend Image: ${{ secrets.DOCKER_USERNAME }}/fe-todo:latest"
+          echo ""
+          echo "Render Blueprint is configured to auto-deploy when images are updated."
+          echo "Deployment will be triggered automatically."

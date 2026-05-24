@@ -5,7 +5,7 @@
 **Student Name:** Kinley Palden  
 **Student Number:** 02230287  
 **Programme:** Bachelor of Engineering in Software Engineering  
-**Assignment:** Assignment 1 - Docker Deployment and Automated CI/CD Pipeline
+
 
 ---
 

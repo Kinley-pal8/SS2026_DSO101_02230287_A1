@@ -36,6 +36,22 @@ const initDB = async () => {
 };
 initDB();
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date() });
+});
+
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "Todo API Backend - Assignment 2 & 3",
+    available_endpoints: {
+      health: "/health",
+      todos: "/todos (GET, POST, PUT, DELETE)"
+    }
+  });
+});
+
 // GET all todos
 app.get("/todos", async (req, res) => {
   try {
@@ -95,4 +111,4 @@ app.delete("/todos/:id", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Backend running on http://0.0.0.0:${PORT}`));
